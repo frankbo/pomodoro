@@ -14,7 +14,7 @@
                     template: '<po-channel></po-channel>'
                 })
                 .state('channel.timer', {
-                    url: '/channel',
+                    url: 'channel/{id:int}',
                     template: '<po-timer></po-timer>'
                 });
         });
