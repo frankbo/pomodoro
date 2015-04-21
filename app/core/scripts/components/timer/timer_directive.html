@@ -1,5 +1,5 @@
 <div>
-    <input type="text" placeholder="{{vm.timeRemaining | date:'mm:ss'}}" readonly/>
+    <input type="text" placeholder="{{vm.remaining | date:'mm:ss'}}" readonly/>
     <button class="startbutton" ng-disabled="!vm.activeButton" ng-click="vm.startTimer()" translate>TIMER_START_BUTTON</button>
     <button class="stopbutton" ng-disabled="vm.activeButton" ng-click="vm.pauseTimer()" translate>PAUSE_TIMER</button>
 </div>

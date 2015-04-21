@@ -5,13 +5,13 @@
         .module('app')
         .controller('TimerController', TimerController);
 
-    function TimerController($timeout, WORK, BREAK) {
+    function TimerController($timeout, WORK, BREAK, socket) {
         var vm = this;
         var t;
+        //var remaining = WORK;
+        var remaining = 5 * 1000;
 
-        // 25 * seconds * minutes
-        vm.timeRemaining = WORK;
-        //vm.timeRemaining = 5 * 1000;
+        vm.remaining = remaining;
         vm.activeButton = true;
 
         vm.startTimer = startTimer;
@@ -19,31 +19,39 @@
 
 
         function startTimer() {
-            console.log('testLog');
-            vm.activeButton = false;
             countdown();
         }
 
         function countdown() {
             t = $timeout(function () {
-                // As long as timeRemaining is bigger than 0
-                if (vm.timeRemaining) {
-                    vm.timeRemaining = vm.timeRemaining - 1000;
+                // As long as remaining is bigger than 0. 0 == false is true
+                if (vm.remaining) {
+                    socket.emit('timer:buttonChange', false);
+                    remaining = remaining - 1000;
+                    socket.emit('timer:remaining', remaining);
                     startTimer();
                 } else {
-                    vm.timeRemaining = BREAK;
-                    vm.activeButton = true;
+                    socket.emit('timer:buttonChange', true);
+                    remaining = BREAK;
+                    socket.emit('timer:remaining', remaining);
                 }
             }, 1000);
         }
 
         function pauseTimer() {
             if (t) {
-                vm.activeButton = true;
+                socket.emit('timer:buttonChange', true);
                 $timeout.cancel(t);
             }
         }
 
-    }
+        socket.on('timer:buttonChange', function (change) {
+            vm.activeButton = change;
+        });
 
+        socket.on('timer:remaining', function (msg) {
+            vm.remaining = msg;
+        });
+
+    }
 }());
