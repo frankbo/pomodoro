@@ -1,0 +1,100 @@
+{
+    "excludeFiles": [
+        "node_modules/**",
+        "log/**",
+        "*.log",
+        "locale-*"
+    ],
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "try",
+        "catch",
+        "switch"
+    ],
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "return",
+        "try",
+        "catch",
+        "throw",
+        "function",
+        "case"
+    ],
+    "requireSpaceBeforeBinaryOperators": [
+        "+",
+        "-",
+        "/",
+        "*",
+        "=",
+        "==",
+        "===",
+        "!=",
+        "!=="
+    ],
+    "requireSpaceAfterBinaryOperators": [
+        "+",
+        "-",
+        "/",
+        "*",
+        "=",
+        "==",
+        "===",
+        "!=",
+        "!=="
+    ],
+    "requireSpaceBeforeBlockStatements": true,
+    "requireSpacesInConditionalExpression": {
+        "afterTest": true,
+        "beforeConsequent": true,
+        "afterConsequent": true,
+        "beforeAlternate": true
+    },
+    "requireSpacesInNamedFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpacesInFunctionDeclaration": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireBlocksOnNewline": true,
+    "disallowEmptyBlocks": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "disallowSpacesInsideArrayBrackets": true,
+    "disallowSpacesInsideParentheses": true,
+    "disallowSpaceAfterObjectKeys": true,
+    "requireSpaceBeforeObjectValues": true,
+    "requireCommaBeforeLineBreak": true,
+    "requireOperatorBeforeLineBreak": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "disallowNewlineBeforeBlockStatements": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "disallowMultipleLineStrings": true,
+    "validateQuoteMarks": { "mark": "\"", "escape": true },
+    "validateIndentation": 4,
+    "maximumLineLength": 120,
+    "disallowTrailingWhitespace": true,
+    "disallowKeywordsOnNewLine": [
+        "else",
+        "catch"
+    ],
+    "requireLineFeedAtFileEnd": true
+}
