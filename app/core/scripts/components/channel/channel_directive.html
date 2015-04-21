@@ -2,10 +2,9 @@
     <ul>
         <li ng-repeat="(key, channel) in vm.channelList">
             <div>
-                <a ui-sref=".timer">{{channel}}</a>
+                <a ui-sref=".timer({id: channel.id})">{{channel.name}}</a>
             </div>
         </li>
     </ul>
-
     <div ui-view></div>
 </div>

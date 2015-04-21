@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -8,6 +8,10 @@
     function ChannelController() {
         var vm = this;
 
-        vm.channelList = ['Channel 1', 'Channel 2', 'Channel 3'];
+        vm.channelList = [
+            { id: 1, name: 'Frontend' },
+            { id: 2, name: 'Backend' },
+            { id: 3, name: 'Design' }
+        ];
     }
 }());
