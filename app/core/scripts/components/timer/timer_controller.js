@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -16,19 +16,19 @@
         vm.pauseCountdown = pauseCountdown;
 
 
-        function countdown () {
-            console.log("testLog");
+        function countdown() {
+            console.log('testLog');
             vm.disableButton = false;
             $timeout(function () {
                 vm.timeRemainsing = vm.timeRemainsing - 1000;
             }, 1000);
         }
 
-        function pauseCountdown () {
+        function pauseCountdown() {
             vm.disableButton = true;
             $timeout.cancel();
         }
 
     }
 
-})();
+}());

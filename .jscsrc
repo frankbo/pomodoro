@@ -88,7 +88,7 @@
     "disallowSpaceAfterPrefixUnaryOperators": true,
     "disallowSpaceBeforePostfixUnaryOperators": true,
     "disallowMultipleLineStrings": true,
-    "validateQuoteMarks": { "mark": "\"", "escape": true },
+    "validateQuoteMarks": { "mark": "'", "escape": true },
     "validateIndentation": 4,
     "maximumLineLength": 120,
     "disallowTrailingWhitespace": true,
