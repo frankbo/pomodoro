@@ -1,0 +1,11 @@
+<div>
+    <ul>
+        <li ng-repeat="(key, channel) in vm.channelList">
+            <div>
+                <a ui-sref=".timer">{{channel}}</a>
+            </div>
+        </li>
+    </ul>
+
+    <div ui-view></div>
+</div>

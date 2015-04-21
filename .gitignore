@@ -1,0 +1,4 @@
+.DS_STORE
+.idea
+bower_components
+node_modules
