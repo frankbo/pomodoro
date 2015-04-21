@@ -1,6 +1,5 @@
 <div>
     <input type="text" placeholder="{{timeRemaining | date:'mm:ss'}}" readonly/>
-    <input type="text" placeholder="{{breakRemaining | date:'mm:ss'}}" readonly/>
-    <button class="startbutton" ng-disabled="disableButton" ng-click="startCountDown()" translate>TIMER_START_BUTTON</button>
-    <button class="stopbutton" ng-disabled="!disableButton" ng-click="stopCountDown()" translate>PAUSE_TIMER</button>
+    <button class="startbutton" ng-disabled="disableButton" ng-click="countdown()" translate>TIMER_START_BUTTON</button>
+    <button class="stopbutton" ng-disabled="!disableButton" ng-click="pauseCountdown()" translate>PAUSE_TIMER</button>
 </div>
