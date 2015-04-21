@@ -1,9 +1,9 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app')
-        .config(function($stateProvider, $urlRouterProvider) {
+        .config(function ($stateProvider, $urlRouterProvider) {
             // Redirect to root url if state is unknown
             $urlRouterProvider.otherwise('/');
 
