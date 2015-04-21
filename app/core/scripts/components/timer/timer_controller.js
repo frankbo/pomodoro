@@ -7,26 +7,37 @@
 
     function TimerController($timeout) {
         var vm = this;
+        var t;
 
         // 25 minutes
         vm.timeRemaining = 25 * 1000 * 60;
-        vm.disableButton = true;
+        vm.avtiveButton = true;
 
-        vm.countdown = countdown;
-        vm.pauseCountdown = pauseCountdown;
+        vm.startTimer = startTimer;
+        vm.pauseTimer = pauseTimer;
 
+
+        function startTimer() {
+            console.log('testLog');
+            vm.avtiveButton = false;
+            countdown();
+        }
 
         function countdown() {
-            console.log('testLog');
-            vm.disableButton = false;
-            $timeout(function () {
-                vm.timeRemainsing = vm.timeRemainsing - 1000;
+            t = $timeout(function () {
+                vm.timeRemaining = vm.timeRemaining - 1000;
+                // As long as timeRemaining is bigger than 0
+                if (vm.timeRemaining) {
+                    startTimer();
+                }
             }, 1000);
         }
 
-        function pauseCountdown() {
-            vm.disableButton = true;
-            $timeout.cancel();
+        function pauseTimer() {
+            if (t) {
+                vm.avtiveButton = true;
+                $timeout.cancel(t);
+            }
         }
 
     }
