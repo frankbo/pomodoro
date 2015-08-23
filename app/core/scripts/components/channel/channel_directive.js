@@ -8,8 +8,8 @@
     function poChannel() {
         var directive = {
             restrict: 'E',
-            replace: true,
-            templateUrl: './core/scripts/components/channel/channel_directive.html',
+            replace: false,
+            templateUrl: './core/scripts/components/channel/channel.html',
             scope: {
 
             },

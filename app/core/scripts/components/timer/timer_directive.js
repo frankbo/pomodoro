@@ -8,11 +8,9 @@
     function poTimer() {
         var directive = {
             restrict: 'E',
-            replace: true,
-            templateUrl: './core/scripts/components/timer/timer_directive.html',
-            scope: {
-
-            },
+            replace: false,
+            templateUrl: './core/scripts/components/timer/timer.html',
+            scope: {},
             controller: 'TimerController',
             controllerAs: 'vm',
             bindToController: true,
