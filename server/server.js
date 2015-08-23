@@ -7,6 +7,9 @@
         console.log('listening on *:3000');
     });
     var io = require('socket.io').listen(server);
+    var Timer = require('./timer.js');
+    var timer = new Timer(io);
+
 
     app.use(express.static(__dirname + '/../app'));
     app.use('/bower_components', express.static(__dirname + '/../bower_components'));
@@ -16,12 +19,14 @@
     });
 
     io.on('connection', function (socket) {
-        socket.on('timer:remaining', function (remainingTime) {
-            io.emit('timer:remaining', remainingTime);
+        socket.on('timer:start', function (data) {
+            timer.countdown(data);
         });
 
-        socket.on('timer:buttonChange', function (buttonChange) {
-            io.emit('timer:buttonChange', buttonChange);
+        socket.on('timer:stop', function (data) {
+            if (timer) {
+                timer.pause(data);
+            }
         });
     });
 
