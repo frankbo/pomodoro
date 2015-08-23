@@ -8,7 +8,7 @@
   "main": "app/index.html",
   "keywords": [
     "timer",
-    "pomodor"
+    "pomodoro"
   ],
   "license": "MIT",
   "private": true,
