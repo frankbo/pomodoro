@@ -5,13 +5,13 @@
         .module('app')
         .controller('TimerController', TimerController);
 
-    function TimerController($timeout, WORK, BREAK, socket) {
+    function TimerController($stateParams, socket) {
         var vm = this;
-        var t;
         //var remaining = WORK;
-        var remaining = 5 * 1000;
+        var currentTime = new Date().getTime();
+        var remaining = currentTime + 5 * 1000;
 
-        vm.remaining = remaining;
+        vm.remaining = remainingTime(remaining);
         vm.activeButton = true;
 
         vm.startTimer = startTimer;
@@ -19,30 +19,22 @@
 
 
         function startTimer() {
-            countdown();
-        }
-
-        function countdown() {
-            t = $timeout(function () {
-                // As long as remaining is bigger than 0. 0 == false is true
-                if (vm.remaining) {
-                    socket.emit('timer:buttonChange', false);
-                    remaining = remaining - 1000;
-                    socket.emit('timer:remaining', remaining);
-                    startTimer();
-                } else {
-                    socket.emit('timer:buttonChange', true);
-                    remaining = BREAK;
-                    socket.emit('timer:remaining', remaining);
-                }
-            }, 1000);
+            var data = {
+                id: $stateParams.id,
+                remaining: remaining
+            };
+            socket.emit('timer:start', data);
         }
 
         function pauseTimer() {
-            if (t) {
-                socket.emit('timer:buttonChange', true);
-                $timeout.cancel(t);
-            }
+            var data = {
+                id: $stateParams.id
+            };
+            socket.emit('timer:stop', data);
+        }
+
+        function remainingTime(time) {
+            return time - new Date().getTime();
         }
 
         socket.on('timer:buttonChange', function (change) {
@@ -50,7 +42,7 @@
         });
 
         socket.on('timer:remaining', function (msg) {
-            vm.remaining = msg;
+            vm.remaining = remainingTime(msg);
         });
 
     }
