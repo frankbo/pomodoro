@@ -1,6 +1,8 @@
+'use strict';
+
 var path = require('path');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
 
     grunt.initConfig({
@@ -17,6 +19,8 @@ module.exports = function(grunt) {
                 }
             }
         }
+
+        //scss {}
     });
 
     grunt.registerTask('default', ['express']);
