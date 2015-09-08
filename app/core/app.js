@@ -2,5 +2,10 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'pascalprecht.translate', 'mgcrea.ngStrap']);
+        .module('app', [
+            'ngAnimate',
+            'ui.router',
+            'pascalprecht.translate',
+            'mgcrea.ngStrap.modal'
+        ]);
 }());
