@@ -74,7 +74,6 @@
     "disallowSpacesInFunctionDeclaration": {
         "beforeOpeningRoundBrace": true
     },
-    "requireBlocksOnNewline": true,
     "disallowEmptyBlocks": true,
     "requireSpacesInsideObjectBrackets": "all",
     "disallowSpacesInsideArrayBrackets": true,
