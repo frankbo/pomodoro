@@ -1,55 +1,54 @@
 (function () {
     'use strict';
 
-    var Timer = function (io) {
+    var oneSecond = 1000;
+    var fiveMinutes = 5 * 1000;
+    var twentyFiveMinutes = 2 * 1000;
+
+    var Timer = function (io, data) {
+        this.id = data.id;
         this.io = io;
-        this.channelList = {};
+        this.t = null;
+        this.time = twentyFiveMinutes;
+        this.paused = true;
+        this.isPause = false;
     };
 
-    Timer.prototype.countdown = function (channelData) {
+    Timer.prototype.countdown = function () {
         var self = this;
-        var channel;
+        this.paused = false;
+        self.io.emit('timer' + this.id + ':buttonChange', this.paused);
 
-        if (!self.channelList[channelData.id]) {
-            self.channelList[channelData.id] = createChannel(channelData);
-        }
-
-        channel = self.channelList[channelData.id];
-
-        console.log('channel id', channelData.id);
-        console.log('channel remaining', channelData.remaining);
-
-        self.remainingTime = channel.remaining;
-        channel.timer = setInterval(function () {
-            var currentTime = new Date().getTime();
-            if (self.remainingTime > currentTime) {
-                self.io.emit('timer:buttonChange', false);
-                self.io.emit('timer:remaining', self.remainingTime);
+        this.t = setInterval(function () {
+            if (self.time > 0) {
+                self.time -= oneSecond;
             } else {
-                self.io.emit('timer:buttonChange', true);
-                self.remainingTime = currentTime + 5 * 1000;
-                self.io.emit('timer:remaining', self.remainingTime);
+                self.time = self.toggleTime();
+                self.pause();
             }
-        }, 1000);
+            self.io.emit('timer' + self.id + ':countdown', self.time);
+        }, oneSecond);
     };
 
-    Timer.prototype.pause = function (channelData) {
-        var channelTimer = this.channelList[channelData.id].timer;
-        if (channelTimer) {
-            this.io.emit('timer:buttonChange', true);
-            clearInterval(channelTimer);
+
+    Timer.prototype.pause = function () {
+        if (this.t) {
+            this.paused = true;
+            this.io.emit('timer' + this.id + ':buttonChange', this.paused);
+            clearInterval(this.t);
         }
     };
 
 
-    function createChannel(channelData) {
-        var newChannel = {
-            id: channelData.id,
-            remaining: channelData.remaining,
-            timer: null
-        };
-        return newChannel;
-    }
+    Timer.prototype.currentState = function () {
+        this.io.emit('timer' + this.id + ':buttonChange', this.paused);
+        this.io.emit('timer' + this.id + ':countdown', this.time);
+    };
+
+    Timer.prototype.toggleTime = function () {
+        this.isPause = !this.isPause;
+        return this.isPause ? fiveMinutes : twentyFiveMinutes;
+    };
 
     module.exports = Timer;
 }());
