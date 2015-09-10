@@ -1,5 +1,7 @@
 {
   "TIMER_START_BUTTON": "Start",
   "ENTER_MINUTES_INPUT": "Number of minutes",
-  "PAUSE_TIMER": "Pause"
+  "PAUSE_TIMER": "Pause",
+  "Add": "Add",
+  "CANCEL": "Cancel"
 }
