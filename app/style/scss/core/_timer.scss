@@ -1,3 +1,12 @@
 po-timer {
+    .counter {
+        width: 100%;
+        font-size: 55px;
+        text-align: center;
+        color: #fff;
+    }
 
+    .btn, .btn-default:hover {
+        color: #6c6c6c;
+    }
 }
