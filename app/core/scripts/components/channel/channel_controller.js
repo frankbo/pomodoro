@@ -5,13 +5,19 @@
         .module('app')
         .controller('ChannelController', ChannelController);
 
-    function ChannelController() {
+    function ChannelController($scope, $modal, store) {
         var vm = this;
+        vm.channelList = store.getChannelList();
 
-        vm.channelList = [
-            { id: 1, name: 'Frontend' },
-            { id: 2, name: 'Backend' },
-            { id: 3, name: 'Design' }
-        ];
+        vm.removeChannel = function (index) {
+            vm.channelList.splice(index, 1);
+        };
+
+        vm.openModal = function () {
+            $modal({
+                template: './core/scripts/components/channel/add/add_channel_modal.html',
+                show: true
+            });
+        };
     }
 }());

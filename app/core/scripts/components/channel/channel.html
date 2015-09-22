@@ -1,10 +1,14 @@
 <div>
-    <ul>
-        <li ng-repeat="(key, channel) in vm.channelList">
-            <div>
+    <div class="channel-timer">
+        <div class="timer-wrapper" ui-view></div>
+        <i class="add-channel" ng-click="vm.openModal()">+</i>
+    </div>
+    <div class="channel-list">
+        <ul class="list-unstyled">
+            <li ng-repeat="(key, channel) in vm.channelList">
                 <a ui-sref=".timer({id: channel.id})">{{channel.name}}</a>
-            </div>
-        </li>
-    </ul>
-    <div ui-view></div>
+                <div class="remove-channel" ng-click="vm.removeChannel($index)">-</div>
+            </li>
+        </ul>
+    </div>
 </div>
