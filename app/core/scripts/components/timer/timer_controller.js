@@ -7,42 +7,45 @@
 
     function TimerController($stateParams, socket) {
         var vm = this;
-        //var remaining = WORK;
-        var currentTime = new Date().getTime();
-        var remaining = currentTime + 5 * 1000;
-
-        vm.remaining = remainingTime(remaining);
-        vm.activeButton = true;
+        var timerId = $stateParams.id;
 
         vm.startTimer = startTimer;
         vm.pauseTimer = pauseTimer;
 
+        initialize();
+
+
+        function initialize() {
+            var data = {
+                id: timerId
+            };
+            socket.emit('timer:initialize', data);
+        }
+
 
         function startTimer() {
             var data = {
-                id: $stateParams.id,
-                remaining: remaining
+                id: timerId
             };
             socket.emit('timer:start', data);
         }
 
+
         function pauseTimer() {
             var data = {
-                id: $stateParams.id
+                id: timerId
             };
             socket.emit('timer:stop', data);
         }
 
-        function remainingTime(time) {
-            return time - new Date().getTime();
-        }
 
-        socket.on('timer:buttonChange', function (change) {
+        socket.on('timer' + timerId + ':buttonChange', function (change) {
             vm.activeButton = change;
         });
 
-        socket.on('timer:remaining', function (msg) {
-            vm.remaining = remainingTime(msg);
+
+        socket.on('timer' + timerId + ':countdown', function (timeRemaining) {
+            vm.remaining = timeRemaining;
         });
 
     }
