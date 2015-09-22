@@ -4,9 +4,9 @@
 
     angular
         .module('app')
-        .factory('resources', resources);
+        .factory('resource', resource);
 
-    function resources($http) {
+    function resource($http, store) {
         var service = {
             addChannel: addChannel
         };
@@ -18,8 +18,10 @@
 
         function addChannel(channel) {
             var endpoint = 'localhost:3000/addchannel';
-            $http.push(endpoint, channel).then(function () {
-
+            var channelList = store.getChannelList();
+            $http.push(endpoint, channel).then(function (response) {
+                channelList.push(response.data);
+                return response.data;
             });
         }
     }
