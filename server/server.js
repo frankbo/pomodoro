@@ -8,7 +8,8 @@
     });
     var io = require('socket.io').listen(server);
     var Timer = require('./timer.js');
-    var timer = new Timer(io);
+
+    var timerList = {};
 
 
     app.use(express.static(__dirname + '/../app'));
@@ -19,14 +20,26 @@
     });
 
     io.on('connection', function (socket) {
+        socket.on('timer:initialize', function (data) {
+            if (!timerList[data.id]) {
+                timerList[data.id] = new Timer(io, data);
+            }
+            timerList[data.id].currentState();
+        });
+
         socket.on('timer:start', function (data) {
-            timer.countdown(data);
+            if (!timerList[data.id]) {
+                timerList[data.id] = new Timer(io, data);
+            }
+            timerList[data.id].countdown();
+
         });
 
         socket.on('timer:stop', function (data) {
-            if (timer) {
-                timer.pause(data);
+            if (!timerList[data.id]) {
+                timerList[data.id] = new Timer(io, data);
             }
+            timerList[data.id].pause();
         });
     });
 
