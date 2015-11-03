@@ -11,6 +11,11 @@
             $stateProvider
                 .state('channel', {
                     url: '/',
+                    resolve: {
+                        fetch: function (resource) {
+                            return resource.getChannels();
+                        }
+                    },
                     template: '<po-channel></po-channel>'
                 })
                 .state('channel.timer', {
