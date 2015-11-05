@@ -7,12 +7,11 @@
         .factory('store', store);
 
     function store() {
-        var channelList = [
-            { id: 1, name: 'Example' }
-        ];
+        var channelList = [];
 
         var service = {
-            getChannelList: getChannelList
+            getChannelList: getChannelList,
+            setChannelList: setChannelList
         };
 
         return service;
@@ -22,6 +21,10 @@
 
         function getChannelList() {
             return channelList;
+        }
+
+        function setChannelList(newChanelList) {
+            channelList = newChanelList;
         }
     }
 
