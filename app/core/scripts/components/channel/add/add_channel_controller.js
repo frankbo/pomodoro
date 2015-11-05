@@ -11,16 +11,9 @@
         vm.channelList = store.getChannelList();
 
         vm.addChannel = function () {
-            var newChannel;
             if (!vm.channelName) { return; }
 
-            newChannel = {
-                id: vm.channelList.length + 1,
-                name: vm.channelName
-            };
-
-            resource.addChannel(newChannel);
-            // TODO See if vm is automagically updated after receiving the answer from the endpoint
+            resource.addChannel(vm.channelName);
         };
     }
 }());
