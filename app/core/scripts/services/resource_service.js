@@ -6,9 +6,10 @@
         .module('app')
         .factory('resource', resource);
 
-    function resource($http, store) {
+    function resource($http, socket, store) {
         var service = {
-            addChannel: addChannel
+            addChannel: addChannel,
+            getChannels: getChannels
         };
 
         return service;
@@ -17,13 +18,18 @@
         /////////////////
 
         function addChannel(channel) {
-            var endpoint = 'localhost:3000/addchannel';
-            var channelList = store.getChannelList();
-            $http.push(endpoint, channel).then(function (response) {
-                channelList.push(response.data);
+            socket.emit('timer:add', channel);
+        }
+
+        function getChannels() {
+            var url = 'http://localhost:3000/gettimers';
+            return $http.get(url).then(function (response) {
+                console.log(response.data);
+                store.setChannelList(response.data);
                 return response.data;
             });
         }
+
     }
 
 }());
