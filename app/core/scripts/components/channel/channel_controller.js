@@ -5,7 +5,7 @@
         .module('app')
         .controller('ChannelController', ChannelController);
 
-    function ChannelController($scope, $modal, store) {
+    function ChannelController(socket, $modal, store) {
         var vm = this;
         vm.channelList = store.getChannelList();
 
@@ -19,5 +19,10 @@
                 show: true
             });
         };
+
+
+        socket.on('timer:added', function (timer) {
+            vm.channelList.push(timer);
+        });
     }
 }());
