@@ -7,6 +7,7 @@
 
     var Timer = function (io, data) {
         this.id = data.id;
+        this.name = data.name;
         this.io = io;
         this.t = null;
         this.time = twentyFiveMinutes;
