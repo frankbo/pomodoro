@@ -54,7 +54,7 @@
 
         socket.on('timer:start', function (data) {
             if (!timerList[data.id]) {
-                timerList[data.id] = new Timer(io, data);
+                timerList[data.id] = new Timer(server, data);
             }
             timerList[data.id].countdown();
 
@@ -62,7 +62,7 @@
 
         socket.on('timer:stop', function (data) {
             if (!timerList[data.id]) {
-                timerList[data.id] = new Timer(io, data);
+                timerList[data.id] = new Timer(server, data);
             }
             timerList[data.id].pause();
         });
@@ -70,7 +70,7 @@
         socket.on('timer:add', function (timerName) {
             var timer = { id: idCounter, name: timerName };
             idCounter += 1;
-            timerList.push(new Timer(io, timer));
+            timerList.push(new Timer(server, timer));
             io.emit('timer:added', timer);
         });
     });

@@ -4,11 +4,12 @@
     var oneSecond = 1000;
     var fiveMinutes = 5 * 1000;
     var twentyFiveMinutes = 2 * 1000;
+    var io = require('socket.io');
 
-    var Timer = function (io, data) {
+    var Timer = function (server, data) {
         this.id = data.id;
         this.name = data.name;
-        this.io = io;
+        this.io = io.listen(server);
         this.t = null;
         this.time = twentyFiveMinutes;
         this.paused = true;
