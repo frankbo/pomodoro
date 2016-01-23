@@ -8,7 +8,7 @@ var server = app.listen(3000, function () {
     console.log('listening on *:3000');
 });
 var io = require('socket.io').listen(server);
-var Timer = require('./timer.js');
+var Timer = require('./timer.js')(io);
 var idCounter = 0;
 var timerList = [];
 
@@ -45,14 +45,14 @@ router.get('/gettimers', function (req, res) {
 io.on('connection', function (socket) {
     socket.on('timer:initialize', function (data) {
         if (!timerList[data.id]) {
-            timerList[data.id] = new Timer(io, data);
+            timerList[data.id] = new Timer(data);
         }
         timerList[data.id].currentState();
     });
 
     socket.on('timer:start', function (data) {
         if (!timerList[data.id]) {
-            timerList[data.id] = new Timer(io, data);
+            timerList[data.id] = new Timer(data);
         }
         timerList[data.id].countdown();
 
@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
 
     socket.on('timer:stop', function (data) {
         if (!timerList[data.id]) {
-            timerList[data.id] = new Timer(io, data);
+            timerList[data.id] = new Timer(data);
         }
         timerList[data.id].pause();
     });
@@ -68,7 +68,7 @@ io.on('connection', function (socket) {
     socket.on('timer:add', function (timerName) {
         var timer = { id: idCounter, name: timerName };
         idCounter += 1;
-        timerList.push(new Timer(io, timer));
+        timerList.push(new Timer(timer));
         io.emit('timer:added', timer);
     });
 });
