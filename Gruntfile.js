@@ -3,9 +3,9 @@
 var path = require('path');
 
 module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     //require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
