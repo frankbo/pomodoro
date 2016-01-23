@@ -3,11 +3,12 @@
 var oneSecond = 1000;
 var fiveMinutes = 5 * 1000;
 var twentyFiveMinutes = 2 * 1000;
+var io;
 
-var Timer = function (io, data) {
+var Timer = function (data) {
+    this.io = io;
     this.id = data.id;
     this.name = data.name;
-    this.io = io;
     this.t = null;
     this.time = twentyFiveMinutes;
     this.paused = true;
@@ -50,4 +51,7 @@ Timer.prototype.toggleTime = function () {
     return this.isPause ? fiveMinutes : twentyFiveMinutes;
 };
 
-module.exports = Timer;
+module.exports = function (passedIo) {
+    io = passedIo;
+    return Timer;
+};
