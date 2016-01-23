@@ -1,55 +1,53 @@
-(function () {
-    'use strict';
+'use strict';
 
-    var oneSecond = 1000;
-    var fiveMinutes = 5 * 1000;
-    var twentyFiveMinutes = 2 * 1000;
+var oneSecond = 1000;
+var fiveMinutes = 5 * 1000;
+var twentyFiveMinutes = 2 * 1000;
 
-    var Timer = function (io, data) {
-        this.id = data.id;
-        this.name = data.name;
-        this.io = io;
-        this.t = null;
-        this.time = twentyFiveMinutes;
-        this.paused = true;
-        this.isPause = false;
-    };
+var Timer = function (io, data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.io = io;
+    this.t = null;
+    this.time = twentyFiveMinutes;
+    this.paused = true;
+    this.isPause = false;
+};
 
-    Timer.prototype.countdown = function () {
-        var self = this;
-        this.paused = false;
-        self.io.emit('timer' + this.id + ':buttonChange', this.paused);
+Timer.prototype.countdown = function () {
+    var self = this;
+    this.paused = false;
+    self.io.emit('timer' + this.id + ':buttonChange', this.paused);
 
-        this.t = setInterval(function () {
-            if (self.time > 0) {
-                self.time -= oneSecond;
-            } else {
-                self.time = self.toggleTime();
-                self.pause();
-            }
-            self.io.emit('timer' + self.id + ':countdown', self.time);
-        }, oneSecond);
-    };
-
-
-    Timer.prototype.pause = function () {
-        if (this.t) {
-            this.paused = true;
-            this.io.emit('timer' + this.id + ':buttonChange', this.paused);
-            clearInterval(this.t);
+    this.t = setInterval(function () {
+        if (self.time > 0) {
+            self.time -= oneSecond;
+        } else {
+            self.time = self.toggleTime();
+            self.pause();
         }
-    };
+        self.io.emit('timer' + self.id + ':countdown', self.time);
+    }, oneSecond);
+};
 
 
-    Timer.prototype.currentState = function () {
+Timer.prototype.pause = function () {
+    if (this.t) {
+        this.paused = true;
         this.io.emit('timer' + this.id + ':buttonChange', this.paused);
-        this.io.emit('timer' + this.id + ':countdown', this.time);
-    };
+        clearInterval(this.t);
+    }
+};
 
-    Timer.prototype.toggleTime = function () {
-        this.isPause = !this.isPause;
-        return this.isPause ? fiveMinutes : twentyFiveMinutes;
-    };
 
-    module.exports = Timer;
-}());
+Timer.prototype.currentState = function () {
+    this.io.emit('timer' + this.id + ':buttonChange', this.paused);
+    this.io.emit('timer' + this.id + ':countdown', this.time);
+};
+
+Timer.prototype.toggleTime = function () {
+    this.isPause = !this.isPause;
+    return this.isPause ? fiveMinutes : twentyFiveMinutes;
+};
+
+module.exports = Timer;
