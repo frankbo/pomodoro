@@ -10,19 +10,12 @@
             restrict: 'E',
             replace: false,
             templateUrl: './core/scripts/components/channel/channel.html',
-            scope: {
-
-            },
+            scope: {},
             controller: 'ChannelController',
             controllerAs: 'vm',
-            bindToController: true,
-            link: link
+            bindToController: true
         };
         return directive;
-
-        function link(scope, elem, attr) {
-
-        }
     }
 })();
 
